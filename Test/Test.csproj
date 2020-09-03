@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AsyncCaller\AsyncCaller.csproj" />
-    <ProjectReference Include="..\ТестовоеЗаданиеСleverence.csproj" />
+    <ProjectReference Include="..\TestСleverence.csproj" />
   </ItemGroup>
 
 </Project>

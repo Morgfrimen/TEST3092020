@@ -4,7 +4,7 @@ using System.Threading;
 
 [assembly: InternalsVisibleTo("Test")]
 
-namespace ТестовоеЗаданиеСleverence
+namespace TestСleverence
 {
     /// <summary>
     /// "Сервер"
