@@ -7,12 +7,12 @@ using System.Threading;
 namespace TestСleverence
 {
     /// <summary>
-    /// "Сервер"
+    /// "Server"
     /// </summary>
     public static class Server
     {
         private static int _count;
-        private static Mutex mutex = new Mutex();
+        private static readonly Mutex MutexObj = new Mutex();
         private static bool _isBlock;
 
         public static int GetCount()
@@ -25,14 +25,14 @@ namespace TestСleverence
         public static void AddToCount(int value)
         {
             _isBlock = true;
-            mutex.WaitOne();
+            MutexObj.WaitOne();
             _count += value;
-            mutex.ReleaseMutex();
+            MutexObj.ReleaseMutex();
             _isBlock = false;
         }
 
         /// <summary>
-        /// Используется для теста - сбрасывает count в дефолтное значение
+        /// OnlyTest
         /// </summary>
         internal static void DefaultCountTestRun()
         {

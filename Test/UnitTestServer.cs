@@ -1,31 +1,19 @@
+using NUnit.Framework;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using TestСleverence;
 
 namespace Test
 {
     public sealed class Tests
     {
-        /// <summary>
-        /// Массив поток (читателей) для чтения параметра с сервера
-        /// </summary>
         private Task<int>[] _tasksReaders;
-
-        /// <summary>
-        /// Массив задач тех, кто добавляет параметр
-        /// </summary>
         private Task[] _tasksAddValue;
 
         public Tests()
         {
             DefaultTask();
-        }
-
-        private void _server_EventChangedCount()
-        {
-            Console.WriteLine($"Изменение состояния: {Server.GetCount()}");
         }
 
         private void DefaultTask()
@@ -61,11 +49,10 @@ namespace Test
                 new Task((() => Server.AddToCount(5))),
                 new Task((() => Server.AddToCount(5)))
             };
-
         }
 
 
-        [Test,Order(1)]
+        [Test, Order(1)]
         public void Test_ParallelReaders()
         {
             foreach (Task<int> reader in _tasksReaders)
@@ -77,12 +64,12 @@ namespace Test
             foreach (Task<int> reader in _tasksReaders)
             {
                 Console.WriteLine($"{reader.Id} : {reader.Status}");
-                Assert.AreEqual(default(int),reader.Result);
+                Assert.AreEqual(default(int), reader.Result);
             }
         }
 
 
-        [Test,Order(2)]
+        [Test, Order(2)]
         public void Test_ParallelAddValue()
         {
             int count = default;
@@ -96,7 +83,7 @@ namespace Test
             Assert.AreEqual(count, Server.GetCount());
         }
 
-        [Test,Order(3)]
+        [Test, Order(3)]
         public void Test_AsyncGetCount()
         {
             Server.DefaultCountTestRun();
@@ -108,13 +95,11 @@ namespace Test
                 Assert.AreEqual(count, _tasksReaders[taskIndex].Result);
                 _tasksAddValue[taskIndex].Start();
                 count += 5;
-                Console.WriteLine($"Было: {Server.GetCount()}");
+                Console.WriteLine($"Before: {Server.GetCount()}");
                 Thread.Sleep(1);
-                Assert.AreEqual(count,Server.GetCount());
-                Console.WriteLine($"Стало: {Server.GetCount()}");
+                Assert.AreEqual(count, Server.GetCount());
+                Console.WriteLine($"Now: {Server.GetCount()}");
             }
         }
-
-
     }
 }
