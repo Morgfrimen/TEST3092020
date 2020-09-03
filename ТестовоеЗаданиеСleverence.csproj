@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AsyncCaller\**" />
+    <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="AsyncCaller\**" />
+    <EmbeddedResource Remove="Test\**" />
+    <None Remove="AsyncCaller\**" />
+    <None Remove="Test\**" />
+  </ItemGroup>
+
+</Project>
